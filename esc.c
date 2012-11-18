@@ -319,6 +319,11 @@ int main(void) {
 			hal_8192us();
 		}
 
+		if (timer_flags & TFLAG_1S)
+		{
+			hal_1s();
+		}
+
 		/***************************************************
 		 *                                                 *
 		 * MAIN PROGRAM LOGIC                              *
@@ -327,6 +332,7 @@ int main(void) {
 
 		if (cond & ~(COND_NO_SERVO_SIGNAL | COND_NO_SERIAL_SIGNAL)) {
 			state = STATE_FAULT;
+			no_fault_time = 0;
 		}
 		else if ((cond & COND_NO_SERVO_SIGNAL) && (cond & COND_NO_SERIAL_SIGNAL)) {
 			state = STATE_NO_SIGNAL;
@@ -349,7 +355,6 @@ int main(void) {
 
 		if (timer_flags & TFLAG_1S)
 		{
-			hal_1s();
 			// 			serial_writestr_P(PSTR("1s\n"));
 			// 			serial_writestr("1s\n");
 			sersendf_P(PSTR("W:%u / %u / %u\n"), servo_pulse_width, config.servo_center, config.servo_range);
