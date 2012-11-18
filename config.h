@@ -14,10 +14,11 @@
 #define ISENSE_R			0.05
 #define ISENSE_MR			50.0
 
-#define NO_FAULT_TIME		122
+#define NO_FAULT_TIME		122 /* lots of 8192uS, 122 * 8192uS = 999424uS, basically 1 second */
 
 #define ANTIPHASE_PWM_LIMIT	10
 
+// this is how long to brake when switching from forward to reverse and vice versa
 #define BRAKE_TIME_US		400000
 
 #define MAX_CURRENT_MA		15000
