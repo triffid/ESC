@@ -1,3 +1,30 @@
+/*****************************************************************************
+*                                                                            *
+* ESC - Electronic Speed Controller for R/C cars and robots                  *
+*                                                                            *
+* Setup and Main Loop routines                                               *
+*                                                                            *
+* by Triffid Hunter                                                          *
+*                                                                            *
+*                                                                            *
+* This firmware is Copyright (C) 2009-2010 Michael Moon aka Triffid_Hunter   *
+*                                                                            *
+* This program is free software; you can redistribute it and/or modify       *
+* it under the terms of the GNU General Public License as published by       *
+* the Free Software Foundation; either version 2 of the License, or          *
+* (at your option) any later version.                                        *
+*                                                                            *
+* This program is distributed in the hope that it will be useful,            *
+* but WITHOUT ANY WARRANTY; without even the implied warranty of             *
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the              *
+* GNU General Public License for more details.                               *
+*                                                                            *
+* You should have received a copy of the GNU General Public License          *
+* along with this program; if not, write to the Free Software                *
+* Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA *
+*                                                                            *
+*****************************************************************************/
+
 #include	<avr/interrupt.h>
 #include	<avr/pgmspace.h>
 #include	<avr/wdt.h>
@@ -22,6 +49,9 @@
 
 #define diff(a,b) (((a) >= (b))?((a)-(b)):((b)-(a)))
 
+/*
+ * Fault Conditions
+ */
 #define COND_NO_SERVO_SIGNAL	1
 #define COND_NO_SERIAL_SIGNAL	2
 #define COND_OVERVOLTAGE		4
@@ -29,6 +59,13 @@
 #define COND_OVERCURRENT		16
 volatile uint8_t cond;
 
+/*
+ * State
+ *
+ * NO_SIGNAL - Both NO_SERVO_SIGNAL and NO_SERIAL_SIGNAL are asserted in condition register
+ * WAIT_OK   - A fault has been recently cleared, we're waiting a little while
+ * RUN       -
+ */
 volatile enum {
 	STATE_NO_SIGNAL,
 	STATE_WAIT_OK,
@@ -38,28 +75,29 @@ volatile enum {
 
 int16_t input_pwm;
 
-volatile enum {
-	DRIVE_COAST,
-	DRIVE_BRAKE,
-	DRIVE_PWM_SINGLE,
-	DRIVE_PWM_LOCKED_ANTIPHASE
-} drive;
-
 #define MAX_PWM 1023
-volatile int16_t drive_pwm;
-
-uint8_t last_drive = DRIVE_COAST;
-int16_t last_pwm = 0;
 
 volatile uint16_t servo_pulse_width = 0;
 uint16_t rise_edge_time = 0, fall_edge_time = 0;
 volatile uint8_t servo_pulse_timeout = 0;
 
+/*
+ * Timer Flags.
+ * Set in the Timer1 Overflow interrupt, these allow basic timekeeping operations in mainloop
+ * They must be cleared in mainloop once they've been processed
+ * There is no provision for detecting an overflow
+ */
 #define TFLAG_128US		1
 #define TFLAG_8192US	2
 #define TFLAG_1S		4
 volatile uint8_t timer_flag = 0;
 
+/*
+ * Stale flags
+ *
+ * A variable is marked as stale when it has been updated in an ISR
+ * main loop should re-check its value and respond appropriately
+ */
 #define STALE_VMOTOR	1
 #define STALE_VSERVO	2
 #define STALE_ISENSE	4
@@ -81,12 +119,10 @@ uint16_t isense = 0;
 
 volatile uint8_t no_fault_time = 0;
 
-// uint16_t min_brake_time;
+// these values only used for printing debug info to the serial port
+// if you do not wish to receive debug info, you can safely comment these
+// and remove references to them throughout this file.
 extern uint16_t brake_time;
-
-// uint16_t max_current;
-// int16_t pwm_cap_overcurrent;
-
 uint16_t _r, _f, _o;
 
 int main(void) {
@@ -114,14 +150,6 @@ int main(void) {
 	SET_OUTPUT(ALO); WRITE(ALO, 0);
 	SET_OUTPUT(BLO); WRITE(BLO, 0);
 
-//     while (1)
-//     {
-//         WRITE(BLO, 1);
-//         WRITE(AHI, 1);
-//         for (volatile uint16_t i = 65535; i; i--);
-//         TOGGLE(ALO);
-//     }
-
 	/*
 	 * set up comparator for gross overcurrent detection
 	 */
@@ -133,6 +161,8 @@ int main(void) {
 	 * set up timer1 for input capture and clocking
 	 * NOTE: mode is FAST PWM 10-bit so counter only counts to 1024
 	 * this gives a PWM frequency of 7812.5 Hz, right in the middle of our audible range unfortunately
+	 *
+	 * Actual testing indicates that it's fairly quiet despite being within the audible range.
 	 */
 	TCCR1A = MASK(WGM11) | MASK(WGM10);
 	TCCR1B = MASK(ICNC1) | MASK(ICES1) | MASK(WGM12) | MASK(CS10);
@@ -153,7 +183,7 @@ int main(void) {
 	/*
 	 * disable unused peripherals
 	 */
-	PRR = 0xFF & ~(MASK(PRTIM1) | MASK(PRUSART0) | MASK(PRADC));
+	PRR = (~MASK(PRTIM1)) & (~MASK(PRUSART0)) & (~MASK(PRADC));
 
 	/*
 	 * set up USART0
@@ -199,12 +229,6 @@ int main(void) {
 		// TODO: MOSI is held low- go into setup mode
 	}
 
-	/*
-	 * wait for 32 servo pulses all within 64us of the same length
-	 * and all within the standard servo pulse width range, 1-2ms
-	 *
-	 * use this value as the detected center throttle position
-	 */
 	uint8_t  servo_valid_pulse_count = 32;
 	uint16_t servo_valid_pulse_width = config.servo_center;
 
@@ -268,13 +292,20 @@ int main(void) {
 
 			uint16_t spw = servo_pulse_width;
 			if ((spw > 2500 US) || (spw < 500 US)) {
+				// if this pulse is out of range, wait for signal to stabilise again before feeding PWM to hal
 				cond |= COND_NO_SERVO_SIGNAL;
 				if (servo_valid_pulse_count < 16)
 					servo_valid_pulse_count = 16;
+				else if (servo_valid_pulse_count < 32)
+					servo_valid_pulse_count++;
 			}
 			else {
 				if (servo_valid_pulse_count)
 				{
+					/*
+					 * wait for 32 servo pulses all within 64us of the same length
+					 * and all within the standard servo pulse width range, 1-2ms
+					 */
 					if (diff(spw, servo_valid_pulse_width) < 128)
 					{
 						servo_valid_pulse_count--;
@@ -311,7 +342,11 @@ int main(void) {
 			if (servo_pulse_timeout)
 				servo_pulse_timeout--;
 			else
+			{
 				cond |= COND_NO_SERVO_SIGNAL;
+				// reset pulse count, so when signal reappears we wait for it to stabilise again
+				servo_valid_pulse_count = 32;
+			}
 
 			if (no_fault_time < NO_FAULT_TIME)
 				no_fault_time++;
@@ -355,18 +390,16 @@ int main(void) {
 
 		if (timer_flags & TFLAG_1S)
 		{
+			/*
+			 * spit out a bunch of internal state to the serial port for debugging
+			 */
 			// 			serial_writestr_P(PSTR("1s\n"));
-			// 			serial_writestr("1s\n");
 			sersendf_P(PSTR("W:%u / %u / %u\n"), servo_pulse_width, config.servo_center, config.servo_range);
 			sersendf_P(PSTR("P:%u / %u / %u\n"), _r, _o, _f);
 			sersendf_P(PSTR("X:%u / %u / %u\n"), servo_valid_pulse_count, servo_valid_pulse_width, servo_pulse_timeout);
 			sersendf_P(PSTR("S:%u / 0x%sx / %u / %u\n"), state, cond, no_fault_time, hal_getmode());
 			sersendf_P(PSTR("mV: %umV, mA: %umA, sV: %umV\n"), vmotor, isense, vservo);
 			sersendf_P(PSTR("B: %u\n"), brake_time);
-			// 			WRITE(BLO, 1);
-			// 			WRITE(AHI, 1);
-			// 			for (volatile uint16_t i = 65535; i; i--);
-			// 			TOGGLE(ALO);
 		}
 	}
 }
@@ -375,6 +408,9 @@ int main(void) {
  * Interrupt Routines
  */
 
+// Analog Comparator interrupt - NOT ADC!
+// this ONLY triggers if we hit the _hard_ overcurrent limit set by the resistor divider on the PCB
+// as such, it is considered a permanent fault which can only be cleared by a powercycle
 ISR(ANALOG_COMP_vect) {
 	cond |= COND_OVERCURRENT;
 
@@ -382,8 +418,6 @@ ISR(ANALOG_COMP_vect) {
 
 	no_fault_time = 0;
 
-// 	drive_pwm = 0;
-// 	drive = DRIVE_COAST;
 	hal_setmode(MODE_COAST);
 
 	WRITE(AHI, 0);
@@ -396,6 +430,8 @@ ISR(ANALOG_COMP_vect) {
 	OCR1A = OCR1B = 0;
 }
 
+// Timer1 Input Capture interrupt
+// this triggers when we receive a rising or falling edge (specified by TCCR1B:ICES1) on the servo input pin
 ISR(TIMER1_CAPT_vect) {
 	if (TCCR1B & MASK(ICES1))
 	{
@@ -421,10 +457,12 @@ ISR(TIMER1_CAPT_vect) {
 	}
 	// changing the target edge inside the interrupt can spuriously re-enable the flag,
 	// causing the interrupt to re-fire as soon as we return
-	// so we explicitly clear the flag here, and hope that there wasn't a genuine edge while we were servicing the ISR!
+	// so we explicitly clear the flag here, and simply hope that there wasn't a genuine edge while we were servicing the ISR!
+	// if we did, then we're probably picking up noise anyway
 	TIFR1 = MASK(ICF1);
 }
 
+// Timer1 Overflow Interrupt
 // every 1024 / 8MHz = 128uS
 ISR(TIMER1_OVF_vect) {
 	static uint16_t second_counter = 0;
@@ -468,18 +506,8 @@ ISR(TIMER1_OVF_vect) {
 	}
 }
 
-// ISR(TIMER1_COMPA_vect) {
-// 	if (drive == DRIVE_PWM_LOCKED_ANTIPHASE) {
-// 		WRITE(AHI, 0);
-// 		WRITE(BLO, 0);
-// 		WRITE(ALO, 1);
-// 		WRITE(BHI, 1);
-// 	}
-// 	else {
-// 		TIMSK1 &= ~MASK(OCIE1A);
-// 	}
-// }
-
+// ADC interrupt
+// triggers whenever we complete a conversion
 ISR(ADC_vect) {
 	static uint8_t which = 0;
 	switch (which) {
@@ -518,22 +546,18 @@ ISR(ADC_vect) {
 	ADCSRA |= MASK(ADSC);
 }
 
-// static const uint8_t extended_fuse __attribute__ ((section (".efuse")))
-//     = 0xFF & FUSE_BODLEVEL1;
-// static const uint8_t high_fuse __attribute__ ((section (".hfuse")))
-//     = 0xFF & FUSE_SPIEN & FUSE_EESAVE;
-// static const uint8_t low_fuse __attribute__ ((section (".lfuse")))
-//     = 0xFF & ~(MASK(CKSEL0) | MASK(CKSEL2) | MASK(CKSEL3));
-// static const uint8_t lock_bits __attribute__ ((section (".lock")))
-//     = 0xFF;
 
 #include <avr/fuse.h>
 #include <avr/io.h>
 
+// TODO: check that atmega328p is selected, these fuses are only valid for '328p!
 FUSES = {
+	// CKSEL 0xD = Internal R/C osc @ 8MHz
     .low =      FUSE_CKSEL0 & FUSE_CKSEL2 & FUSE_CKSEL3,
+	// enable SPI programming, keep EEPROM contents when instructed to chip erase
     .high =     FUSE_SPIEN & FUSE_EESAVE,
+	// BODLEVEL = 0x5 - BOD at 2.5 to 2.9v (2.7v nominal)
     .extended = FUSE_BODLEVEL1,
 };
-
+// nothing locked - no bootloader. program chip using ISP header
 LOCKBITS = 0xFF;
