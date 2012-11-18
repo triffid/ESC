@@ -1,8 +1,8 @@
 ##############################################################################
 #                                                                            #
-# Teacup - alternative firmware for repraps                                  #
+# ESC - Electronic Speed Controller for R/C cars and robots                  #
 #                                                                            #
-# by Triffid Hunter, Traumflug, jakepoz, Markus Hitter, many others          #
+# by Triffid Hunter                                                          #
 #                                                                            #
 #                                                                            #
 # This firmware is Copyright (C) 2009-2010 Michael Moon aka Triffid_Hunter   #
