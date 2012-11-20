@@ -105,9 +105,9 @@ volatile uint8_t timer_flag = 0;
 #define STALE_INPUTPWM	16
 volatile uint8_t stale = 0;
 
+#define ADC_ISENSE	0
 #define ADC_VMOTOR	1
 #define ADC_VSERVO	2
-#define ADC_ISENSE	3
 
 volatile uint16_t adc_vmotor = 0;
 volatile uint16_t adc_vservo = 0;
@@ -244,7 +244,7 @@ int main(void) {
 		if (stale & STALE_VMOTOR) {
 			stale &= ~STALE_VMOTOR;
 			sei();
-			vmotor = adc_vin(ADC);
+			vmotor = adc_vin(adc_vmotor);
 
 			if (vmotor < 9000) {
 				cond |= COND_UNDERVOLTAGE;
@@ -269,7 +269,7 @@ int main(void) {
 		if (stale & STALE_VSERVO) {
 			stale &= ~STALE_VSERVO;
 			sei();
-			vservo = adc_vservo(ADC);
+			vservo = adc_vservo(adc_vservo);
 		}
 		else
 			sei();
@@ -278,7 +278,7 @@ int main(void) {
 		if (stale & STALE_ISENSE) {
 			stale &= ~STALE_ISENSE;
 			sei();
-			isense = adc_isense(ADC);
+			isense = adc_isense(adc_isense);
 
 			hal_reportcurrent(isense);
 		}
@@ -529,7 +529,8 @@ ISR(ADC_vect) {
 	}
 
 	which++;
-	if (which >= 3) which -= 3;
+	if (which >= 3)
+		which = 0;
 
 	ADMUX &= 0xF0;
 	switch (which) {
