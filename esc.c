@@ -77,7 +77,8 @@ int16_t input_pwm;
 
 #define MAX_PWM 1023
 
-volatile uint16_t servo_pulse_width = 0;
+volatile uint16_t servo_pulse_accumulator = 0;
+uint16_t servo_pulse_width = 0;
 uint16_t rise_edge_time = 0, fall_edge_time = 0;
 volatile uint8_t servo_pulse_timeout = 0;
 
@@ -290,8 +291,7 @@ int main(void) {
 			stale &= ~STALE_SERVOPWM;
 			sei();
 
-			uint16_t spw = servo_pulse_width;
-			if ((spw > 2500 US) || (spw < 500 US)) {
+            if ((servo_pulse_width > 2500 US) || (servo_pulse_width < 500 US)) {
 				// if this pulse is out of range, wait for signal to stabilise again before feeding PWM to hal
 				cond |= COND_NO_SERVO_SIGNAL;
 				if (servo_valid_pulse_count < 16)
@@ -306,17 +306,17 @@ int main(void) {
 					 * wait for 32 servo pulses all within 64us of the same length
 					 * and all within the standard servo pulse width range, 1-2ms
 					 */
-					if (diff(spw, servo_valid_pulse_width) < 128)
+                    if (diff(servo_pulse_width, servo_valid_pulse_width) < 128)
 					{
 						servo_valid_pulse_count--;
 					}
-					// valid_width = 3/4 valid_width + 1/4 spw
-					servo_valid_pulse_width = (servo_valid_pulse_width / 2) + (servo_valid_pulse_width / 4) + (spw / 4);
+					// valid_width = 3/4 valid_width + 1/4 servo_pulse_width
+					servo_valid_pulse_width = (servo_valid_pulse_width / 2) + (servo_valid_pulse_width / 4) + (servo_pulse_width / 4);
 				}
 				else {
 					// dynamically adjust if incoming pulses are out of the current servo_range window, up to some sensible maximums
 
-					input_pwm = (((((int32_t) spw) - ((int32_t) config.servo_center)) * 1024) / config.servo_range);
+                    input_pwm = (((((int32_t) servo_pulse_width) - ((int32_t) config.servo_center)) * 1024) / config.servo_range);
 
 					if (input_pwm > MAX_PWM)
 						input_pwm = MAX_PWM;
@@ -438,7 +438,7 @@ ISR(TIMER1_CAPT_vect) {
 		// got a RISING edge - simply record the start time and set up the overflow counter
 		rise_edge_time = _r = ICR1;
 		_o = 0;
-		servo_pulse_width = 0;
+		servo_pulse_accumulator = 0;
 		// now look for a falling edge
 		TCCR1B &= ~MASK(ICES1);
 	}
@@ -447,7 +447,7 @@ ISR(TIMER1_CAPT_vect) {
 		// got a FALLING edge
 		fall_edge_time = _f = ICR1;
 		// work out time since rising edge - servo_pulse_width gets incremented in the overflow interrupt
-		servo_pulse_width = servo_pulse_width + fall_edge_time - rise_edge_time;
+		servo_pulse_width = servo_pulse_accumulator + fall_edge_time - rise_edge_time;
 		// reset pulse timeout
 		servo_pulse_timeout = 5;
 		// now look for a RISING edge
@@ -479,7 +479,7 @@ ISR(TIMER1_OVF_vect) {
 	if ((TCCR1B & MASK(ICES1)) == 0)
 	{
 		// record this overflow
-		servo_pulse_width += 1024 - rise_edge_time;
+		servo_pulse_accumulator += 1024 - rise_edge_time;
 		rise_edge_time = 0;
 		_o++;
 	}
