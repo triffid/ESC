@@ -15293,156 +15293,6 @@ Source: Comchip CGRM4001-G.pdf</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="ACS712">
-<packages>
-<package name="SO08">
-<description>&lt;b&gt;8 Lead SOIC&lt;/b&gt;&lt;p&gt;
-Data Sheet No. PD60212 Rev A&lt;br&gt;
-Source: www.irf.com .. ir2520.pdf</description>
-<wire x1="2.4" y1="1.9" x2="2.4" y2="-1.4" width="0.2032" layer="51"/>
-<wire x1="2.4" y1="-1.4" x2="2.4" y2="-1.9" width="0.2032" layer="51"/>
-<wire x1="2.4" y1="-1.9" x2="-2.4" y2="-1.9" width="0.2032" layer="51"/>
-<wire x1="-2.4" y1="-1.9" x2="-2.4" y2="-1.4" width="0.2032" layer="51"/>
-<wire x1="-2.4" y1="-1.4" x2="-2.4" y2="1.9" width="0.2032" layer="51"/>
-<wire x1="-2.4" y1="1.9" x2="2.4" y2="1.9" width="0.2032" layer="51"/>
-<wire x1="2.4" y1="-1.4" x2="-2.4" y2="-1.4" width="0.2032" layer="51"/>
-<smd name="2" x="-0.635" y="-2.35" dx="0.72" dy="1.78" layer="1"/>
-<smd name="7" x="-0.635" y="2.35" dx="0.72" dy="1.78" layer="1"/>
-<smd name="1" x="-1.905" y="-2.35" dx="0.72" dy="1.78" layer="1"/>
-<smd name="3" x="0.635" y="-2.35" dx="0.72" dy="1.78" layer="1"/>
-<smd name="4" x="1.905" y="-2.35" dx="0.72" dy="1.78" layer="1"/>
-<smd name="8" x="-1.905" y="2.35" dx="0.72" dy="1.78" layer="1"/>
-<smd name="6" x="0.635" y="2.35" dx="0.72" dy="1.78" layer="1"/>
-<smd name="5" x="1.905" y="2.35" dx="0.72" dy="1.78" layer="1"/>
-<text x="-2.667" y="-1.905" size="1.27" layer="25" rot="R90">&gt;NAME</text>
-<text x="3.937" y="-1.905" size="1.27" layer="27" rot="R90">&gt;VALUE</text>
-<rectangle x1="-2.15" y1="-3.1" x2="-1.66" y2="-2" layer="51"/>
-<rectangle x1="-0.88" y1="-3.1" x2="-0.39" y2="-2" layer="51"/>
-<rectangle x1="0.39" y1="-3.1" x2="0.88" y2="-2" layer="51"/>
-<rectangle x1="1.66" y1="-3.1" x2="2.15" y2="-2" layer="51"/>
-<rectangle x1="1.66" y1="2" x2="2.15" y2="3.1" layer="51"/>
-<rectangle x1="0.39" y1="2" x2="0.88" y2="3.1" layer="51"/>
-<rectangle x1="-0.88" y1="2" x2="-0.39" y2="3.1" layer="51"/>
-<rectangle x1="-2.15" y1="2" x2="-1.66" y2="3.1" layer="51"/>
-</package>
-</packages>
-<symbols>
-<symbol name="ACS712_SYM">
-<wire x1="-10.16" y1="7.62" x2="10.16" y2="7.62" width="0.254" layer="94"/>
-<wire x1="10.16" y1="7.62" x2="10.16" y2="5.08" width="0.254" layer="94"/>
-<wire x1="10.16" y1="5.08" x2="10.16" y2="2.54" width="0.254" layer="94"/>
-<wire x1="10.16" y1="2.54" x2="10.16" y2="-2.54" width="0.254" layer="94"/>
-<wire x1="10.16" y1="-2.54" x2="10.16" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="10.16" y1="-5.08" x2="10.16" y2="-7.62" width="0.254" layer="94"/>
-<wire x1="10.16" y1="-7.62" x2="-10.16" y2="-7.62" width="0.254" layer="94"/>
-<wire x1="-10.16" y1="-7.62" x2="-10.16" y2="7.62" width="0.254" layer="94"/>
-<pin name="I+_0" x="-15.24" y="5.08" visible="off" length="middle"/>
-<pin name="I+_1" x="-15.24" y="2.54" visible="off" length="middle"/>
-<pin name="I-_0" x="-15.24" y="-2.54" visible="off" length="middle"/>
-<pin name="I-_1" x="-15.24" y="-5.08" visible="off" length="middle"/>
-<pin name="GND" x="15.24" y="-5.08" visible="off" length="middle" direction="pwr" rot="R180"/>
-<pin name="FILTER" x="15.24" y="-2.54" visible="off" length="middle" rot="R180"/>
-<pin name="VOUT" x="15.24" y="2.54" visible="off" length="middle" direction="out" rot="R180"/>
-<pin name="VCC" x="15.24" y="5.08" visible="off" length="middle" direction="pwr" rot="R180"/>
-<wire x1="-15.24" y1="5.08" x2="-15.24" y2="2.54" width="0.254" layer="91"/>
-<wire x1="-15.24" y1="-2.54" x2="-15.24" y2="-5.08" width="0.254" layer="91"/>
-<text x="5.08" y="10.16" size="1.778" layer="95" font="vector" rot="R180">&gt;NAME</text>
-<text x="-5.08" y="-10.16" size="1.778" layer="96" font="vector">&gt;VALUE</text>
-<wire x1="-9.525" y1="5.08" x2="-9.525" y2="3.81" width="1.016" layer="94"/>
-<wire x1="-9.525" y1="3.81" x2="-9.525" y2="2.54" width="1.016" layer="94"/>
-<wire x1="-9.525" y1="3.81" x2="-7.3025" y2="3.81" width="1.016" layer="94"/>
-<wire x1="-7.3025" y1="3.81" x2="-7.3025" y2="-3.81" width="1.016" layer="94"/>
-<wire x1="-7.3025" y1="-3.81" x2="-9.525" y2="-3.81" width="1.016" layer="94"/>
-<wire x1="-9.525" y1="-3.81" x2="-9.525" y2="-2.54" width="1.016" layer="94"/>
-<wire x1="-9.525" y1="-3.81" x2="-9.525" y2="-5.08" width="1.016" layer="94"/>
-<wire x1="-5.715" y1="1.27" x2="-5.715" y2="0" width="0.127" layer="94"/>
-<wire x1="-5.715" y1="0" x2="-5.715" y2="-1.27" width="0.127" layer="94"/>
-<wire x1="-5.715" y1="-1.27" x2="-4.445" y2="-1.27" width="0.127" layer="94"/>
-<wire x1="-4.445" y1="-1.27" x2="-3.175" y2="-1.27" width="0.127" layer="94"/>
-<wire x1="-3.175" y1="-1.27" x2="-3.175" y2="0" width="0.127" layer="94"/>
-<wire x1="-3.175" y1="0" x2="-3.175" y2="1.27" width="0.127" layer="94"/>
-<wire x1="-3.175" y1="1.27" x2="-4.445" y2="1.27" width="0.127" layer="94"/>
-<wire x1="-4.445" y1="1.27" x2="-5.715" y2="1.27" width="0.127" layer="94"/>
-<wire x1="-5.08" y1="-0.635" x2="-4.445" y2="0" width="0.127" layer="94"/>
-<wire x1="-4.445" y1="0" x2="-3.81" y2="0.635" width="0.127" layer="94"/>
-<wire x1="-5.08" y1="0.635" x2="-4.445" y2="0" width="0.127" layer="94"/>
-<wire x1="-4.445" y1="0" x2="-3.81" y2="-0.635" width="0.127" layer="94"/>
-<wire x1="-1.27" y1="1.27" x2="-1.27" y2="0.635" width="0.127" layer="94"/>
-<wire x1="-1.27" y1="0.635" x2="-1.27" y2="-0.635" width="0.127" layer="94"/>
-<wire x1="-1.27" y1="-0.635" x2="-1.27" y2="-1.27" width="0.127" layer="94"/>
-<wire x1="-1.27" y1="-1.27" x2="1.27" y2="0" width="0.127" layer="94"/>
-<wire x1="1.27" y1="0" x2="-1.27" y2="1.27" width="0.127" layer="94"/>
-<wire x1="-1.27" y1="0.635" x2="-1.905" y2="0.635" width="0.127" layer="94"/>
-<wire x1="-1.905" y1="0.635" x2="-1.905" y2="1.905" width="0.127" layer="94"/>
-<wire x1="-1.905" y1="1.905" x2="-4.445" y2="1.905" width="0.127" layer="94"/>
-<wire x1="-4.445" y1="1.905" x2="-4.445" y2="1.27" width="0.127" layer="94"/>
-<wire x1="-4.445" y1="-1.27" x2="-4.445" y2="-1.905" width="0.127" layer="94"/>
-<wire x1="-4.445" y1="-1.905" x2="-1.905" y2="-1.905" width="0.127" layer="94"/>
-<wire x1="-1.905" y1="-1.905" x2="-1.905" y2="-0.635" width="0.127" layer="94"/>
-<wire x1="-1.905" y1="-0.635" x2="-1.27" y2="-0.635" width="0.127" layer="94"/>
-<wire x1="-5.715" y1="0" x2="-6.35" y2="0" width="0.127" layer="94"/>
-<wire x1="-6.35" y1="0" x2="-6.35" y2="5.08" width="0.127" layer="94"/>
-<wire x1="-6.35" y1="5.08" x2="10.16" y2="5.08" width="0.127" layer="94"/>
-<wire x1="-3.175" y1="0" x2="-2.54" y2="0" width="0.127" layer="94"/>
-<wire x1="-2.54" y1="0" x2="-2.54" y2="-5.08" width="0.127" layer="94"/>
-<wire x1="-2.54" y1="-5.08" x2="10.16" y2="-5.08" width="0.127" layer="94"/>
-<wire x1="1.27" y1="0" x2="2.54" y2="0" width="0.127" layer="94"/>
-<wire x1="2.54" y1="0" x2="2.54" y2="-2.54" width="0.127" layer="94"/>
-<wire x1="2.54" y1="-2.54" x2="3.81" y2="-2.54" width="0.127" layer="94"/>
-<wire x1="6.0325" y1="-2.54" x2="8.255" y2="-2.54" width="0.127" layer="94"/>
-<wire x1="8.255" y1="-2.54" x2="10.16" y2="-2.54" width="0.127" layer="94"/>
-<wire x1="8.255" y1="-2.54" x2="8.255" y2="-1.27" width="0.127" layer="94"/>
-<wire x1="8.255" y1="-1.27" x2="9.525" y2="-1.27" width="0.127" layer="94"/>
-<wire x1="9.525" y1="-1.27" x2="8.255" y2="1.27" width="0.127" layer="94"/>
-<wire x1="8.255" y1="1.27" x2="6.985" y2="-1.27" width="0.127" layer="94"/>
-<wire x1="6.985" y1="-1.27" x2="8.255" y2="-1.27" width="0.127" layer="94"/>
-<wire x1="8.255" y1="1.27" x2="8.255" y2="2.54" width="0.127" layer="94"/>
-<wire x1="8.255" y1="2.54" x2="10.16" y2="2.54" width="0.127" layer="94"/>
-<wire x1="3.81" y1="-2.54" x2="4.1275" y2="-1.905" width="0.127" layer="94"/>
-<wire x1="4.1275" y1="-1.905" x2="4.445" y2="-3.175" width="0.127" layer="94"/>
-<wire x1="4.445" y1="-3.175" x2="4.7625" y2="-1.905" width="0.127" layer="94"/>
-<wire x1="4.7625" y1="-1.905" x2="5.08" y2="-3.175" width="0.127" layer="94"/>
-<wire x1="5.08" y1="-3.175" x2="5.3975" y2="-1.905" width="0.127" layer="94"/>
-<wire x1="5.3975" y1="-1.905" x2="5.715" y2="-3.175" width="0.127" layer="94"/>
-<wire x1="5.715" y1="-3.175" x2="6.0325" y2="-2.54" width="0.127" layer="94"/>
-<wire x1="-0.889" y1="0.762" x2="-0.889" y2="0.635" width="0.127" layer="94"/>
-<wire x1="-0.889" y1="0.635" x2="-0.889" y2="0.508" width="0.127" layer="94"/>
-<wire x1="-1.016" y1="0.635" x2="-0.889" y2="0.635" width="0.127" layer="94"/>
-<wire x1="-0.889" y1="0.635" x2="-0.762" y2="0.635" width="0.127" layer="94"/>
-<wire x1="-1.016" y1="-0.635" x2="-0.762" y2="-0.635" width="0.127" layer="94"/>
-<text x="10.4775" y="5.3975" size="1.016" layer="97" font="vector">VCC</text>
-<text x="10.4775" y="2.8575" size="1.016" layer="97" font="vector">VOUT</text>
-<text x="10.4775" y="-2.2225" size="1.016" layer="97" font="vector">FILTER</text>
-<text x="10.4775" y="-4.7625" size="1.016" layer="97" font="vector">GND</text>
-<text x="-12.065" y="3.175" size="1.016" layer="97" font="vector">I+</text>
-<text x="-12.065" y="-4.445" size="1.016" layer="97" font="vector">I-</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="ACS712" prefix="IC">
-<gates>
-<gate name="A" symbol="ACS712_SYM" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="SO08">
-<connects>
-<connect gate="A" pin="FILTER" pad="6"/>
-<connect gate="A" pin="GND" pad="5"/>
-<connect gate="A" pin="I+_0" pad="1"/>
-<connect gate="A" pin="I+_1" pad="2"/>
-<connect gate="A" pin="I-_0" pad="3"/>
-<connect gate="A" pin="I-_1" pad="4"/>
-<connect gate="A" pin="VCC" pad="8"/>
-<connect gate="A" pin="VOUT" pad="7"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="linear">
 <description>&lt;b&gt;Linear Devices&lt;/b&gt;&lt;p&gt;
 Operational amplifiers,  comparators, voltage regulators, ADCs, DACs, etc.&lt;p&gt;
@@ -15601,10 +15451,6 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <part name="C16" library="rcl" deviceset="C-EU" device="C0603K" value="100nF"/>
 <part name="R16" library="rcl" deviceset="R-EU_" device="R0603" value="1k"/>
 <part name="P+9" library="supply1" deviceset="+5V" device=""/>
-<part name="IC1" library="ACS712" deviceset="ACS712" device=""/>
-<part name="C17" library="rcl" deviceset="C-EU" device="C0603K" value="100nF"/>
-<part name="P+10" library="supply1" deviceset="+5V" device=""/>
-<part name="C18" library="rcl" deviceset="C-EU" device="C0603K" value="100nF"/>
 <part name="R17" library="rcl" deviceset="R-EU_" device="R0603" value="1k"/>
 <part name="IC2" library="linear" deviceset="78L*" device="F" technology="12"/>
 <part name="GND10" library="supply1" deviceset="GND" device=""/>
@@ -15676,20 +15522,16 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <instance part="R12" gate="G$1" x="86.36" y="40.64"/>
 <instance part="R13" gate="G$1" x="119.38" y="35.56"/>
 <instance part="C14" gate="G$1" x="-139.7" y="25.4"/>
-<instance part="R14" gate="G$1" x="-190.5" y="45.72" rot="R90"/>
-<instance part="R15" gate="G$1" x="-190.5" y="30.48" rot="R90"/>
-<instance part="P+8" gate="VCC" x="-190.5" y="55.88"/>
-<instance part="C15" gate="G$1" x="-200.66" y="27.94"/>
+<instance part="R14" gate="G$1" x="-172.72" y="45.72" rot="R90"/>
+<instance part="R15" gate="G$1" x="-172.72" y="30.48" rot="R90"/>
+<instance part="P+8" gate="VCC" x="-172.72" y="55.88"/>
+<instance part="C15" gate="G$1" x="-182.88" y="27.94"/>
 <instance part="SJ1" gate="G$1" x="-129.54" y="99.06" rot="MR0"/>
 <instance part="C16" gate="G$1" x="-104.14" y="25.4"/>
 <instance part="R16" gate="G$1" x="-111.76" y="30.48" rot="R180"/>
 <instance part="P+9" gate="1" x="-116.84" y="33.02" smashed="yes">
 <attribute name="VALUE" x="-114.3" y="35.56" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="IC1" gate="A" x="88.9" y="20.32" rot="MR0"/>
-<instance part="C17" gate="G$1" x="63.5" y="15.24"/>
-<instance part="P+10" gate="1" x="73.66" y="30.48"/>
-<instance part="C18" gate="G$1" x="-71.12" y="93.98"/>
 <instance part="R17" gate="G$1" x="-30.48" y="88.9"/>
 <instance part="IC2" gate="G$1" x="96.52" y="83.82" rot="MR0"/>
 <instance part="GND10" gate="1" x="93.98" y="73.66"/>
@@ -15702,7 +15544,7 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <instance part="GND7" gate="1" x="-66.04" y="12.7"/>
 <instance part="GND8" gate="1" x="-104.14" y="12.7"/>
 <instance part="GND9" gate="1" x="-149.86" y="12.7"/>
-<instance part="GND11" gate="1" x="-190.5" y="12.7"/>
+<instance part="GND11" gate="1" x="-172.72" y="12.7"/>
 <instance part="C21" gate="G$1" x="33.02" y="78.74"/>
 <instance part="GND12" gate="1" x="33.02" y="71.12"/>
 </instances>
@@ -15734,10 +15576,6 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <junction x="-109.22" y="86.36"/>
 <wire x1="-109.22" y1="86.36" x2="-124.46" y2="86.36" width="0.1524" layer="91"/>
 <wire x1="-124.46" y1="86.36" x2="-124.46" y2="88.9" width="0.1524" layer="91"/>
-<pinref part="C18" gate="G$1" pin="2"/>
-<wire x1="-78.74" y1="86.36" x2="-71.12" y2="86.36" width="0.1524" layer="91"/>
-<wire x1="-71.12" y1="86.36" x2="-71.12" y2="88.9" width="0.1524" layer="91"/>
-<junction x="-78.74" y="86.36"/>
 </segment>
 <segment>
 <pinref part="HIP4082" gate="A" pin="VSS"/>
@@ -15748,26 +15586,12 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <wire x1="144.78" y1="7.62" x2="154.94" y2="7.62" width="0.1524" layer="91"/>
 <junction x="144.78" y="7.62"/>
 <pinref part="R1" gate="G$1" pin="2"/>
-<pinref part="IC1" gate="A" pin="I-_0"/>
-<pinref part="IC1" gate="A" pin="I-_1"/>
-<wire x1="104.14" y1="15.24" x2="104.14" y2="17.78" width="0.1524" layer="91"/>
-<junction x="104.14" y="15.24"/>
-<wire x1="104.14" y1="15.24" x2="109.22" y2="15.24" width="0.1524" layer="91"/>
-<junction x="109.22" y="15.24"/>
 <pinref part="GND1" gate="1" pin="GND"/>
 <wire x1="109.22" y1="5.08" x2="109.22" y2="7.62" width="0.1524" layer="91"/>
 <junction x="109.22" y="7.62"/>
 <wire x1="109.22" y1="7.62" x2="109.22" y2="15.24" width="0.1524" layer="91"/>
 <wire x1="109.22" y1="7.62" x2="144.78" y2="7.62" width="0.1524" layer="91"/>
-<wire x1="109.22" y1="7.62" x2="73.66" y2="7.62" width="0.1524" layer="91"/>
-<pinref part="IC1" gate="A" pin="GND"/>
-<wire x1="73.66" y1="15.24" x2="73.66" y2="7.62" width="0.1524" layer="91"/>
-<junction x="73.66" y="7.62"/>
-<wire x1="73.66" y1="7.62" x2="63.5" y2="7.62" width="0.1524" layer="91"/>
-<pinref part="C17" gate="G$1" pin="2"/>
-<wire x1="63.5" y1="10.16" x2="63.5" y2="7.62" width="0.1524" layer="91"/>
-<junction x="63.5" y="7.62"/>
-<wire x1="63.5" y1="7.62" x2="58.42" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="109.22" y1="7.62" x2="58.42" y2="7.62" width="0.1524" layer="91"/>
 <wire x1="58.42" y1="7.62" x2="58.42" y2="35.56" width="0.1524" layer="91"/>
 <junction x="58.42" y="7.62"/>
 <wire x1="58.42" y1="7.62" x2="53.34" y2="7.62" width="0.1524" layer="91"/>
@@ -15871,12 +15695,12 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <segment>
 <pinref part="R15" gate="G$1" pin="1"/>
 <pinref part="C15" gate="G$1" pin="2"/>
-<wire x1="-200.66" y1="17.78" x2="-200.66" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="-190.5" y1="17.78" x2="-200.66" y2="17.78" width="0.1524" layer="91"/>
-<wire x1="-190.5" y1="17.78" x2="-190.5" y2="25.4" width="0.1524" layer="91"/>
+<wire x1="-182.88" y1="17.78" x2="-182.88" y2="22.86" width="0.1524" layer="91"/>
+<wire x1="-172.72" y1="17.78" x2="-182.88" y2="17.78" width="0.1524" layer="91"/>
+<wire x1="-172.72" y1="17.78" x2="-172.72" y2="25.4" width="0.1524" layer="91"/>
 <pinref part="GND11" gate="1" pin="GND"/>
-<wire x1="-190.5" y1="15.24" x2="-190.5" y2="17.78" width="0.1524" layer="91"/>
-<junction x="-190.5" y="17.78"/>
+<wire x1="-172.72" y1="15.24" x2="-172.72" y2="17.78" width="0.1524" layer="91"/>
+<junction x="-172.72" y="17.78"/>
 </segment>
 <segment>
 <pinref part="C21" gate="G$1" pin="2"/>
@@ -15982,9 +15806,6 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <junction x="-93.98" y="99.06"/>
 <wire x1="-93.98" y1="99.06" x2="-86.36" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="-93.98" y1="99.06" x2="-96.52" y2="99.06" width="0.1524" layer="91"/>
-<pinref part="C18" gate="G$1" pin="1"/>
-<wire x1="-78.74" y1="99.06" x2="-71.12" y2="99.06" width="0.1524" layer="91"/>
-<wire x1="-71.12" y1="99.06" x2="-71.12" y2="96.52" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R16" gate="G$1" pin="2"/>
@@ -16017,11 +15838,6 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <wire x1="-40.64" y1="99.06" x2="-35.56" y2="99.06" width="0.1524" layer="91"/>
 <wire x1="-35.56" y1="99.06" x2="-35.56" y2="106.68" width="0.1524" layer="91"/>
 </segment>
-<segment>
-<pinref part="IC1" gate="A" pin="VCC"/>
-<pinref part="P+10" gate="1" pin="+5V"/>
-<wire x1="73.66" y1="25.4" x2="73.66" y2="27.94" width="0.1524" layer="91"/>
-</segment>
 </net>
 <net name="SENSE" class="0">
 <segment>
@@ -16037,12 +15853,6 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="R4" gate="G$1" pin="2"/>
 <wire x1="76.2" y1="33.02" x2="106.68" y2="33.02" width="0.1524" layer="91"/>
 <junction x="106.68" y="33.02"/>
-<pinref part="IC1" gate="A" pin="I+_0"/>
-<wire x1="104.14" y1="25.4" x2="109.22" y2="25.4" width="0.1524" layer="91"/>
-<junction x="109.22" y="25.4"/>
-<pinref part="IC1" gate="A" pin="I+_1"/>
-<wire x1="104.14" y1="22.86" x2="104.14" y2="25.4" width="0.1524" layer="91"/>
-<junction x="104.14" y="25.4"/>
 </segment>
 </net>
 <net name="N$9" class="0">
@@ -16080,10 +15890,9 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="ATMEGA328" gate="A" pin="ADC7"/>
 <wire x1="-38.1" y1="33.02" x2="-20.32" y2="33.02" width="0.1524" layer="91"/>
 <pinref part="R4" gate="G$1" pin="1"/>
-<wire x1="66.04" y1="33.02" x2="63.5" y2="33.02" width="0.1524" layer="91"/>
 <junction x="-20.32" y="33.02"/>
 <pinref part="C10" gate="G$1" pin="1"/>
-<wire x1="63.5" y1="33.02" x2="53.34" y2="33.02" width="0.1524" layer="91"/>
+<wire x1="66.04" y1="33.02" x2="53.34" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="33.02" x2="45.72" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="45.72" y1="33.02" x2="-20.32" y2="33.02" width="0.1524" layer="91"/>
 <wire x1="53.34" y1="17.78" x2="53.34" y2="33.02" width="0.1524" layer="91"/>
@@ -16092,10 +15901,6 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <wire x1="45.72" y1="17.78" x2="45.72" y2="33.02" width="0.1524" layer="91"/>
 <junction x="45.72" y="33.02"/>
 <label x="55.88" y="35.56" size="1.778" layer="95" rot="R180"/>
-<pinref part="IC1" gate="A" pin="VOUT"/>
-<wire x1="73.66" y1="22.86" x2="63.5" y2="22.86" width="0.1524" layer="91"/>
-<wire x1="63.5" y1="22.86" x2="63.5" y2="33.02" width="0.1524" layer="91"/>
-<junction x="63.5" y="33.02"/>
 <label x="-17.78" y="35.56" size="1.778" layer="95" rot="R90"/>
 </segment>
 </net>
@@ -16118,11 +15923,11 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="ATMEGA328" gate="A" pin="PB1/OC1A"/>
 <wire x1="-93.98" y1="66.04" x2="-96.52" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="-96.52" y1="66.04" x2="-96.52" y2="78.74" width="0.1524" layer="91"/>
-<wire x1="-96.52" y1="78.74" x2="27.94" y2="78.74" width="0.1524" layer="91"/>
-<label x="33.02" y="55.88" size="1.778" layer="95"/>
+<wire x1="-96.52" y1="78.74" x2="22.86" y2="78.74" width="0.1524" layer="91"/>
+<label x="30.48" y="55.88" size="1.778" layer="95"/>
 <pinref part="HIP4082" gate="A" pin="ALI"/>
-<wire x1="27.94" y1="55.88" x2="40.64" y2="55.88" width="0.1524" layer="91"/>
-<wire x1="27.94" y1="78.74" x2="27.94" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="55.88" x2="40.64" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="78.74" x2="22.86" y2="55.88" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="OC1B" class="0">
@@ -16130,11 +15935,11 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="ATMEGA328" gate="A" pin="PB2/OC1B"/>
 <wire x1="-93.98" y1="63.5" x2="-99.06" y2="63.5" width="0.1524" layer="91"/>
 <wire x1="-99.06" y1="63.5" x2="-99.06" y2="81.28" width="0.1524" layer="91"/>
-<wire x1="-99.06" y1="81.28" x2="30.48" y2="81.28" width="0.1524" layer="91"/>
-<label x="33.02" y="53.34" size="1.778" layer="95"/>
+<wire x1="-99.06" y1="81.28" x2="25.4" y2="81.28" width="0.1524" layer="91"/>
+<label x="30.48" y="53.34" size="1.778" layer="95"/>
 <pinref part="HIP4082" gate="A" pin="BLI"/>
-<wire x1="40.64" y1="53.34" x2="30.48" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="53.34" x2="30.48" y2="81.28" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="53.34" x2="25.4" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="25.4" y1="53.34" x2="25.4" y2="81.28" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="AHI" class="0">
@@ -16142,7 +15947,7 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="ATMEGA328" gate="A" pin="PD2/INT0"/>
 <wire x1="-38.1" y1="63.5" x2="40.64" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="HIP4082" gate="A" pin="AHI"/>
-<label x="33.02" y="63.5" size="1.778" layer="95"/>
+<label x="30.48" y="63.5" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="BHI" class="0">
@@ -16150,7 +15955,7 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="ATMEGA328" gate="A" pin="PD3/OC2B/INT1"/>
 <wire x1="40.64" y1="60.96" x2="-38.1" y2="60.96" width="0.1524" layer="91"/>
 <pinref part="HIP4082" gate="A" pin="BHI"/>
-<label x="33.02" y="60.96" size="1.778" layer="95"/>
+<label x="30.48" y="60.96" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$17" class="0">
@@ -16208,7 +16013,7 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <segment>
 <pinref part="R14" gate="G$1" pin="2"/>
 <pinref part="P+8" gate="VCC" pin="VCC"/>
-<wire x1="-190.5" y1="50.8" x2="-190.5" y2="53.34" width="0.1524" layer="91"/>
+<wire x1="-172.72" y1="50.8" x2="-172.72" y2="53.34" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="Q4" gate="G$1" pin="D"/>
@@ -16346,20 +16151,20 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <net name="VSENSE" class="0">
 <segment>
 <pinref part="R14" gate="G$1" pin="1"/>
-<wire x1="-190.5" y1="38.1" x2="-200.66" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="-172.72" y1="38.1" x2="-182.88" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="R15" gate="G$1" pin="2"/>
 <pinref part="C15" gate="G$1" pin="1"/>
-<wire x1="-200.66" y1="30.48" x2="-200.66" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="-190.5" y1="35.56" x2="-190.5" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="-190.5" y1="38.1" x2="-185.42" y2="38.1" width="0.1524" layer="91"/>
-<wire x1="-185.42" y1="38.1" x2="-185.42" y2="7.62" width="0.1524" layer="91"/>
-<junction x="-190.5" y="38.1"/>
-<wire x1="-185.42" y1="7.62" x2="-68.58" y2="7.62" width="0.1524" layer="91"/>
-<wire x1="-68.58" y1="7.62" x2="-68.58" y2="40.64" width="0.1524" layer="91"/>
+<wire x1="-182.88" y1="30.48" x2="-182.88" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="-172.72" y1="35.56" x2="-172.72" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="-172.72" y1="38.1" x2="-167.64" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="-167.64" y1="38.1" x2="-167.64" y2="7.62" width="0.1524" layer="91"/>
+<junction x="-172.72" y="38.1"/>
+<wire x1="-167.64" y1="7.62" x2="-71.12" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="-71.12" y1="7.62" x2="-71.12" y2="40.64" width="0.1524" layer="91"/>
 <label x="-119.38" y="10.16" size="1.778" layer="95" rot="R180"/>
-<wire x1="-190.5" y1="40.64" x2="-190.5" y2="38.1" width="0.1524" layer="91"/>
+<wire x1="-172.72" y1="40.64" x2="-172.72" y2="38.1" width="0.1524" layer="91"/>
 <pinref part="ATMEGA328" gate="A" pin="PC2/ADC2"/>
-<wire x1="-68.58" y1="40.64" x2="-93.98" y2="40.64" width="0.1524" layer="91"/>
+<wire x1="-71.12" y1="40.64" x2="-93.98" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$21" class="0">
@@ -16372,22 +16177,15 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="SJ1" gate="G$1" pin="2"/>
 </segment>
 </net>
-<net name="N$15" class="0">
-<segment>
-<pinref part="C17" gate="G$1" pin="1"/>
-<pinref part="IC1" gate="A" pin="FILTER"/>
-<wire x1="63.5" y1="17.78" x2="73.66" y2="17.78" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="DISABLE" class="0">
 <segment>
 <pinref part="HIP4082" gate="A" pin="DIS"/>
-<wire x1="40.64" y1="43.18" x2="30.48" y2="43.18" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="43.18" x2="30.48" y2="7.62" width="0.1524" layer="91"/>
-<wire x1="30.48" y1="7.62" x2="-60.96" y2="7.62" width="0.1524" layer="91"/>
-<wire x1="-60.96" y1="7.62" x2="-60.96" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="40.64" y1="43.18" x2="22.86" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="43.18" x2="22.86" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="7.62" x2="-58.42" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="-58.42" y1="7.62" x2="-58.42" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="ATMEGA328" gate="A" pin="PC1/ADC1"/>
-<wire x1="-60.96" y1="43.18" x2="-93.98" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="-58.42" y1="43.18" x2="-93.98" y2="43.18" width="0.1524" layer="91"/>
 <label x="-7.62" y="10.16" size="1.778" layer="95" rot="R180"/>
 </segment>
 </net>
