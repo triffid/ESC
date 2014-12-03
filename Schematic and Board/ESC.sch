@@ -15543,10 +15543,10 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 </class>
 </classes>
 <parts>
-<part name="Q1" library="transistor-power" deviceset="PMOSFET_N" device="TO220BV"/>
-<part name="Q2" library="transistor-power" deviceset="PMOSFET_N" device="TO220BV"/>
-<part name="Q3" library="transistor-power" deviceset="PMOSFET_N" device="TO220BV"/>
-<part name="Q4" library="transistor-power" deviceset="PMOSFET_N" device="TO220BV"/>
+<part name="Q1" library="transistor-power" deviceset="PMOSFET_N" device="TO220BV" value="IRL1404Z"/>
+<part name="Q2" library="transistor-power" deviceset="PMOSFET_N" device="TO220BV" value="IRL1404Z"/>
+<part name="Q3" library="transistor-power" deviceset="PMOSFET_N" device="TO220BV" value="IRL1404Z"/>
+<part name="Q4" library="transistor-power" deviceset="PMOSFET_N" device="TO220BV" value="IRL1404Z"/>
 <part name="GND1" library="supply1" deviceset="GND" device=""/>
 <part name="HIP4082" library="HIP4082" deviceset="HIP4082IBZ" device="" value="HIP4082"/>
 <part name="C1" library="rcl" deviceset="C-EU" device="C0805K" value="10uF"/>
@@ -15556,7 +15556,7 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <part name="ATMEGA328" library="ATMEGA48-88-168-328" deviceset="ATMEGA48-88-168-328" device="" value="ATMEGA328"/>
 <part name="LM1117" library="burr-brown" deviceset="REG1117" device=""/>
 <part name="P+2" library="supply1" deviceset="+5V" device=""/>
-<part name="R1" library="rcl" deviceset="R-EU_" device="R2512" value="0R05"/>
+<part name="R1" library="rcl" deviceset="R-EU_" device="R2512" value="0R005"/>
 <part name="C3" library="rcl" deviceset="C-EU" device="C0805K" value="10uF"/>
 <part name="C4" library="rcl" deviceset="C-EU" device="C0603K" value="100nF"/>
 <part name="C5" library="rcl" deviceset="C-EU" device="C0603K" value="100nF"/>
@@ -15618,6 +15618,8 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
 <part name="GND9" library="supply1" deviceset="GND" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
+<part name="C21" library="rcl" deviceset="C-EU" device="C0603K" value="100nF"/>
+<part name="GND12" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15661,7 +15663,7 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <instance part="C13" gate="G$1" x="-154.94" y="25.4"/>
 <instance part="GND3" gate="1" x="-109.22" y="81.28"/>
 <instance part="P+3" gate="VCC" x="106.68" y="109.22"/>
-<instance part="GND2" gate="1" x="40.64" y="68.58"/>
+<instance part="GND2" gate="1" x="40.64" y="71.12"/>
 <instance part="P+4" gate="1" x="-63.5" y="109.22"/>
 <instance part="P+5" gate="1" x="-20.32" y="109.22"/>
 <instance part="ISP" gate="A" x="-45.72" y="96.52"/>
@@ -15701,6 +15703,8 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <instance part="GND8" gate="1" x="-104.14" y="12.7"/>
 <instance part="GND9" gate="1" x="-149.86" y="12.7"/>
 <instance part="GND11" gate="1" x="-190.5" y="12.7"/>
+<instance part="C21" gate="G$1" x="33.02" y="78.74"/>
+<instance part="GND12" gate="1" x="33.02" y="71.12"/>
 </instances>
 <busses>
 </busses>
@@ -15709,7 +15713,6 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <segment>
 <pinref part="GND2" gate="1" pin="GND"/>
 <pinref part="C4" gate="G$1" pin="2"/>
-<wire x1="40.64" y1="73.66" x2="40.64" y2="71.12" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="C7" gate="G$1" pin="2"/>
@@ -15874,6 +15877,10 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="GND11" gate="1" pin="GND"/>
 <wire x1="-190.5" y1="15.24" x2="-190.5" y2="17.78" width="0.1524" layer="91"/>
 <junction x="-190.5" y="17.78"/>
+</segment>
+<segment>
+<pinref part="C21" gate="G$1" pin="2"/>
+<pinref part="GND12" gate="1" pin="GND"/>
 </segment>
 </net>
 <net name="N$1" class="0">
@@ -16404,6 +16411,10 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 <pinref part="IC2" gate="G$1" pin="VO"/>
 <pinref part="P+1" gate="1" pin="+12V"/>
 <wire x1="83.82" y1="83.82" x2="83.82" y2="106.68" width="0.1524" layer="91"/>
+<pinref part="C21" gate="G$1" pin="1"/>
+<wire x1="40.64" y1="83.82" x2="33.02" y2="83.82" width="0.1524" layer="91"/>
+<wire x1="33.02" y1="83.82" x2="33.02" y2="81.28" width="0.1524" layer="91"/>
+<junction x="40.64" y="83.82"/>
 </segment>
 <segment>
 <pinref part="SJ1" gate="G$1" pin="1"/>
@@ -16429,17 +16440,26 @@ Source: &lt;a href="http://focus.ti.com/lit/ds/symlink/ua78l05.pdf"&gt; Datashee
 </sheet>
 </sheets>
 <errors>
+<approved hash="104,1,-66.04,20.32,ATMEGA328,GND0,GND,,,"/>
+<approved hash="104,1,-63.5,20.32,ATMEGA328,GND1,GND,,,"/>
+<approved hash="202,1,-38.1,35.56,ATMEGA328,ADC6,,,,"/>
+<approved hash="104,1,-38.1,40.64,ATMEGA328,AGND,GND,,,"/>
+<approved hash="104,1,-66.04,76.2,ATMEGA328,VCC0,+5V,,,"/>
+<approved hash="104,1,-63.5,76.2,ATMEGA328,VCC1,+5V,,,"/>
+<approved hash="104,1,73.66,25.4,IC1,VCC,+5V,,,"/>
 <approved hash="208,1,-96.52,99.06,+5V,out,,,,"/>
-<approved hash="208,1,-73.66,101.6,+5V,sup,,,,"/>
-<approved hash="208,1,-63.5,86.36,+5V,sup,,,,"/>
-<approved hash="208,1,-20.32,86.36,+5V,sup,,,,"/>
-<approved hash="208,1,-33.02,101.6,+5V,sup,,,,"/>
-<approved hash="111,1,45.72,66.04,N$6,,,,,"/>
-<approved hash="111,1,45.72,53.34,N$10,,,,,"/>
-<approved hash="115,1,64.5445,43.18,Q1,,,,,"/>
-<approved hash="115,1,92.4845,43.18,Q2,,,,,"/>
-<approved hash="115,1,92.4845,68.58,Q3,,,,,"/>
-<approved hash="115,1,64.5445,68.58,Q4,,,,,"/>
+<approved hash="208,1,-78.74,106.68,+5V,sup,,,,"/>
+<approved hash="208,1,-116.84,30.48,+5V,sup,,,,"/>
+<approved hash="208,1,-63.5,106.68,+5V,sup,,,,"/>
+<approved hash="208,1,-20.32,106.68,+5V,sup,,,,"/>
+<approved hash="208,1,-35.56,106.68,+5V,sup,,,,"/>
+<approved hash="208,1,73.66,27.94,+5V,sup,,,,"/>
+<approved hash="111,1,78.74,66.04,N$6,,,,,"/>
+<approved hash="111,1,78.74,53.34,N$10,,,,,"/>
+<approved hash="111,1,-149.86,68.58,N$17,,,,,"/>
+<approved hash="111,1,83.82,66.04,N$8,,,,,"/>
+<approved hash="113,1,-44.4923,97.9212,ISP,,,,,"/>
+<approved hash="113,1,-128.863,99.06,SJ1,,,,,"/>
 </errors>
 </schematic>
 </drawing>
