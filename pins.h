@@ -10,6 +10,9 @@
 // #define MISO			PB4
 // #define SCK				PB5
 
+#define ENC_P0		PD4
+#define ENC_P1		PD5
+
 #define AHI			PD2
 #define ALO			PB1
 #define BHI			PD3
